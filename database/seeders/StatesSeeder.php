@@ -27,6 +27,6 @@ class StatesSeeder extends Seeder
             ];
         }
 
-        State::insert($data);
+        State::upsert($data, 'code');
     }
 }

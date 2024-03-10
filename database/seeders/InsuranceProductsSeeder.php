@@ -13,7 +13,7 @@ class InsuranceProductsSeeder extends Seeder
      */
     public function run(): void
     {
-        InsuranceProduct::insert([
+        InsuranceProduct::upsert([
             [
                 'name' => 'Home',
                 'system_name' => 'home',
@@ -29,6 +29,6 @@ class InsuranceProductsSeeder extends Seeder
                 'system_name' => 'recreational_vehicle',
                 'description' => 'Your boat RV, motorcycle, etc'
             ]
-        ]);
+        ], 'id');
     }
 }

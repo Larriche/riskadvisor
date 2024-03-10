@@ -27,19 +27,22 @@ class QuoteSubmissionsTest extends TestCase
      */
     public function test_creating_quote_submission_with_invalid_data_fails($data, $assertableField): void 
     {
-        $response = $this->post('/quote', [
+        $response = $this->post('/submission', [
             'first_name' => ''
         ])->assertSessionHasErrors($assertableField);
     }
 
     public function test_quote_submissions_are_saved_with_valid_data()
     {
+        $product = InsuranceProduct::factory()->create();
+        $state = State::factory()->create();
+
         $data = [
             'first_name' => 'Test name',
             'last_name' => 'Test last name',
             'email' => 'quotetest@example.com',
-            'product_ids' => [InsuranceProduct::first()->id],
-            'state_id' => State::first()->id,
+            'product_ids' => [$product->id],
+            'state_id' => $state->id,
             'phone' => '1234567890',
             'contact_preference' => 'email',
             'zipcode' => '12345',

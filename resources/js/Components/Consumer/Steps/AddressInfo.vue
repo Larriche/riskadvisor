@@ -12,7 +12,7 @@
 
             <div class="w-full">
                 <label>Ste/Apt</label>
-                <input type="text" placeholder="-" v-model="addressInfo.apartment"/>
+                <input type="text" v-model="addressInfo.apartment" placeholder="Apartment" />
             </div>
         </div>
 
@@ -25,6 +25,7 @@
         <div class="mt-5 mb-5 w-full">
             <label>State *</label>
             <select v-model="addressInfo.state_id">
+                <option value="">Select a state</option>
                 <option :value="state.id" v-for="state in states" :key="state.id">{{ state.code }}</option>
             </select>
             <small v-if="errors.state_id" class="text-red-500">{{  errors.state_id }}</small>
