@@ -2,10 +2,15 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Tests\TestCase;
+use App\Models\User;
 use App\Models\State;
 use App\Models\InsuranceProduct;
+use App\Models\Submission;
+
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Inertia\Testing\AssertableInertia as Assert;
+
 
 class QuoteSubmissionsTest extends TestCase
 {
@@ -61,6 +66,26 @@ class QuoteSubmissionsTest extends TestCase
             'zipcode' => '12345',
             'city' => 'test'
         ]);
+    }
+
+    public function test_unauthenticated_users_cannot_see_submissions()
+    {
+        $response = $this->get('/submissions');
+
+        $response->assertStatus(302);
+    }
+
+    public function test_authenticated_users_can_see_submissions()
+    {
+        $user = User::factory()->create();
+        
+        $this->actingAs($user)
+            ->get('/submissions')
+            ->assertStatus(200)
+            ->assertInertia(fn (Assert $page) => $page
+                ->component('Admin/Submissions')
+                ->has('submissions')
+            );
     }
 
     public static function invalidQuoteFormData()
