@@ -13,4 +13,14 @@ class Submission extends Model
     {
         return $this->belongsToMany(InsuranceProduct::class, 'submission_products', 'submission_id', 'product_id');
     }
+
+    public function consumer()
+    {
+        return $this->belongsTo(Consumer::class);
+    }
+
+    public function state()
+    {
+        return $this->belongsTo(State::class);
+    }
 }

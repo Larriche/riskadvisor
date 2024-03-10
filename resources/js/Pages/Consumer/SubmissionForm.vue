@@ -88,7 +88,7 @@ function handleAddressInfoSubmit(data) {
     form.state_id = data.state_id;
     form.zipcode = data.zipcode;
 
-    form.post('/quote', {
+    form.post('/submission', {
         onSuccess: () => currentPage.value = DONE
     });
 }

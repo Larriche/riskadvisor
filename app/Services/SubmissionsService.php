@@ -6,7 +6,7 @@ use App\Models\Consumer;
 use App\Models\Submission;
 use Illuminate\Support\Arr;
 
-class QuotesService
+class SubmissionsService
 {
     public function saveQuote(array $data): Submission
     {

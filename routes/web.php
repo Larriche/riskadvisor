@@ -3,8 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\QuotesController;
-
+use App\Http\Controllers\SubmissionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,5 +35,9 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::get('quote', [QuotesController::class, 'create']);
-Route::post('quote', [QuotesController::class, 'store']);
+Route::get('submissions', [SubmissionsController::class, 'index'])
+    ->middleware('auth')
+    ->name('submissions.index');
+    
+Route::get('submission', [SubmissionsController::class, 'create']);
+Route::post('submission', [SubmissionsController::class, 'store']);
