@@ -39,13 +39,13 @@
             <small v-if="errors.contact_preference" class="text-red-500">{{  errors.contact_preference }}</small>
         </div>
 
-        <button class="btn btn-blue w-full mt-1" @click="handleSubmit">Continue</button>
-        <button class="btn w-full mt-1 text-blue-500" @click="emit('previous')">Back</button>
+        <button class="btn btn-blue w-full mt-1" :class="{'cursor-not-allowed': !allowContinue}" :disabled="!allowContinue" @click="handleSubmit">Continue</button>
+        <button class="btn w-full mt-1 text-blue-500 text-lg" @click="emit('previous')">Back</button>
     </div>
 </template>
 
 <script setup>
-import { reactive } from 'vue';
+import { reactive, computed } from 'vue';
 
 const emit = defineEmits(['next', 'previous']);
 const props = defineProps(['errors']);
@@ -57,6 +57,19 @@ const personalInfo = reactive({
     phone: '',
     contact_preference: 'email'
 })
+
+const allowContinue = computed(() => {
+    if (!personalInfo.first_name
+        || !personalInfo.last_name 
+        || !personalInfo.email
+        || !personalInfo.phone 
+        || !personalInfo.contact_preference
+    ) {
+        return false;
+    }
+
+    return true;
+});
 
 function handleSubmit() {
     emit('next', personalInfo);

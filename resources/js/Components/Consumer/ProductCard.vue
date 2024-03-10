@@ -30,7 +30,11 @@ function getIconPath(optionType) {
 
 <style lang="scss">
 .product-card {
-    @apply flex bg-gradient-to-r from-blue-900 to-slate-400 text-white mt-5 mb-5 rounded-lg px-3 py-3 relative cursor-pointer;
+    @apply flex bg-gradient-to-r from-blue-900 to-slate-400 text-white mt-3 mb-3 rounded-lg px-3 py-3 relative cursor-pointer;
+}
+
+.product-card.selected {
+    @apply border-4 border-teal-500 bg-gradient-to-r from-blue-900 to-slate-500;
 }
 
 .product-card.selected:before {

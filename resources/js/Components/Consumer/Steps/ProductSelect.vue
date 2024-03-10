@@ -9,7 +9,7 @@
 
         <button :class="['btn btn-blue w-full mt-1', {'cursor-not-allowed': productIds.length == 0}]" :disabled="productIds.length == 0" @click="emit('next', productIds)">Agree and Continue</button>
 
-        <p class="font-thin text-gray-500">By continuing this from you agree to share data with Franke Insurance Services as defined in the Terms of Use and Privacy Policy.</p>
+        <p class="font-thin text-gray-500 mt-5">By continuing this from you agree to share data with Franke Insurance Services as defined in the Terms of Use and Privacy Policy.</p>
     </div>
 </template>
 

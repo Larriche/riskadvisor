@@ -37,15 +37,15 @@
             <small v-if="errors.zipcode" class="text-red-500">{{  errors.zipcode }}</small>
         </div>
 
-        <button class="btn btn-blue w-full mt-1" @click="handleSubmit">Continue</button>
-        <button class="btn w-full mt-1 text-blue-500" @click="emit('previous')">Back</button>
+        <button class="btn btn-blue w-full mt-1" :class="{'cursor-not-allowed': !allowContinue}" :disabled="!allowContinue" @click="handleSubmit">Continue</button>
+        <button class="btn w-full mt-1 text-blue-500 text-lg" @click="emit('previous')">Back</button>
     </div>
 </template>
 
 <script setup>
-import { reactive } from 'vue';
+import { reactive, computed } from 'vue';
 
-const props = defineProps(['states', 'errors']);
+const props = defineProps(['states', 'errors', 'submitting']);
 const emit = defineEmits(['next', 'previous']);
 
 const addressInfo = reactive({
@@ -55,6 +55,18 @@ const addressInfo = reactive({
     state_id: '',
     zipcode: ''
 })
+
+const allowContinue = computed(() => {
+    if (props.submitting) {
+        return false;
+    }
+
+    if (!addressInfo.city || !addressInfo.state_id || !addressInfo.zipcode) {
+        return false;
+    }
+
+    return true;
+});
 
 function handleSubmit() {
     emit('next', addressInfo);

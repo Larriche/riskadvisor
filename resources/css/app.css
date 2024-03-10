@@ -15,7 +15,7 @@ body {
 }
 
 .btn {
-    @apply font-bold py-3 px-4 rounded-lg;
+    @apply font-bold py-3 px-4 rounded-lg text-lg;
 }
 
 .btn-blue {
@@ -35,7 +35,7 @@ label {
 }
 
 .form-container input, .form-container select {
-    @apply rounded-lg w-full py-3 px-3 text-gray-700 text-lg;
+    @apply rounded-lg w-full py-3 px-3 text-gray-700 text-lg border-gray-300;
 }
 
 input:focus {

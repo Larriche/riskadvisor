@@ -14,7 +14,9 @@
                 @previous="currentPage = LANDING_STEP" />
 
             <AddressInfo v-show="currentPage == ADDRESS_STEP" 
-                :states="states" :errors="form.errors" 
+                :states="states" 
+                :errors="form.errors" 
+                :submitting="submitting"
                 @next="(data) => handleAddressInfoSubmit(data)" @previous="currentPage = PERSONAL_INFO_STEP"/>
 
             <SubmissionFeedback v-show="currentPage == DONE" />
@@ -37,6 +39,7 @@ const ADDRESS_STEP = 'address_step';
 const DONE = 'done';
 
 const currentPage = ref(LANDING_STEP);
+const submitting = ref(false);
 const props = defineProps(['products', 'states']);
 
 const currentImageClass = computed(() => {
@@ -88,8 +91,11 @@ function handleAddressInfoSubmit(data) {
     form.state_id = data.state_id;
     form.zipcode = data.zipcode;
 
+    submitting.value = true;
+
     form.post('/submission', {
-        onSuccess: () => currentPage.value = DONE
+        onSuccess: () => currentPage.value = DONE,
+        onFinish: () => submitting.value = false
     });
 }
 </script>
