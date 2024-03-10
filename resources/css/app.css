@@ -5,3 +5,40 @@
 [x-cloak] {
     display: none;
 }
+
+body {
+    height: 100vh;
+}
+
+#app {
+    height: 100%;
+}
+
+.btn {
+    @apply font-bold py-3 px-4 rounded-lg;
+}
+
+.btn-blue {
+    @apply bg-blue-500 text-white;
+}
+
+.btn-blue:hover {
+    @apply bg-blue-700;
+}
+
+.form-container {
+    margin-top: 10rem;
+}
+
+label {
+    @apply block text-gray-700 text-lg mb-2;
+}
+
+.form-container input, .form-container select {
+    @apply rounded-lg w-full py-3 px-3 text-gray-700 text-lg;
+}
+
+input:focus {
+    @apply outline-none;
+}
+    
