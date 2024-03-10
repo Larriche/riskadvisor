@@ -29,7 +29,8 @@ docker compose up -d
 
 This will setup containers serving the following
 - An nginx instance
-- A MySQL instance
+- A MySQL db instance for the app
+- A MySQL db instance for tests
 - A container instance that exposes the app for you to run php artisan and compose commands
 - An instance to install node dependencies and serve the frontend of the app
 
@@ -38,9 +39,14 @@ Next, install project dependencies with composer
 docker compose exec app bash -c "composer install"
 ```
 
-Generate an app key for Laravel
+Generate an app key for Laravel app
 ```
 docker compose exec app bash -c "php artisan key:generate"
+```
+
+Generate an app key for test env
+```
+docker compose exec app bash -c "php artisan key:generate --env=testing"
 ```
 
 Run migrations and seeders
@@ -51,6 +57,11 @@ docker compose exec app bash -c "php artisan migrate --seed"
 To access the terminal for running further artisan or composer commands
 ```
 docker compose exec app bash
+```
+
+You can run the project specific tests with
+```
+docker compose exec app bash -c "php artisan test --filter=QuoteSubmissionsTest"
 ```
 
 Visit `http://localhost:8000/submission` to access the quote submission form.

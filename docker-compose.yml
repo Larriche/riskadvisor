@@ -43,6 +43,23 @@ services:
       retries: 3
       timeout: 5s
 
+  database-testing:
+    image: 'mysql/mysql-server:8.0'
+    environment:
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_DATABASE: 'testing'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    ports:
+      - '3308:3306'
+    volumes:
+      - db-testing:/var/lib/mysql
+    networks:
+      - insureapp
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping']
+      retries: 3
+      timeout: 5s
+
   frontend:
     build:
       context: ./docker
@@ -61,4 +78,6 @@ networks:
 
 volumes:
   db:
+    driver: local
+  db-testing:
     driver: local
