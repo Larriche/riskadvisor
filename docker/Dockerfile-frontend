@@ -1,0 +1,19 @@
+FROM node:18-alpine
+
+LABEL maintainer="Insure"
+
+WORKDIR /var/www/html
+
+ENV TZ=UTC
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+RUN apk update && apk add bash && apk add --no-cache openssh git
+
+# change default shell from ash to bash
+RUN sed -i -e "s/bin\/ash/bin\/bash/" /etc/passwd
+ENV LC_ALL=en_US.UTF-8
+
+COPY ./helpers/start-frontend.sh /usr/local/bin/start-frontend.sh
+RUN chmod +x /usr/local/bin/start-frontend.sh
+
+ENTRYPOINT ["start-frontend.sh"]
